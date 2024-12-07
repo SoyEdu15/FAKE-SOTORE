@@ -72,7 +72,7 @@ Sigue estos pasos para clonar y configurar el proyecto:
   ```
 
 #### 2. **Inicio de Sesión**
-- **URL:** `/api/login`
+- **URL:** `/auth/login`
 - **Método:** `POST`
 - **Descripción:** Genera un token JWT para el usuario.
 - **Cuerpo de la Solicitud:**
