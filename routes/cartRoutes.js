@@ -1,10 +1,17 @@
-const express = require('express');
-const router = express.Router();
+    const express = require('express');
+    const { authenticate } = require('../middlewares/authMiddleware');
+    const {
+        getCart,
+        addToCart,
+        updateCart,
+        removeFromCart,
+    } = require('../controllers/cartController');
 
-// Define las rutas para el carrito
-router.get('/', (req, res) => {
-    // Lógica para obtener el carrito
-    res.send('Carrito de compras');
-});
+    const router = express.Router();
 
-module.exports = router;
+    router.get('/', authenticate, getCart); // Obtener el carrito del usuario
+    router.post('/', authenticate, addToCart); // Agregar producto al carrito
+    router.put('/', authenticate, updateCart); // Actualizar cantidad de producto
+    router.delete('/:cartId', authenticate, removeFromCart); // Eliminar producto
+
+    module.exports = router;
