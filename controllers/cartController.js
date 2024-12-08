@@ -14,8 +14,6 @@ const getCart = async (req, res) => {
 };
 
 // Agregar producto al carrito
-
-// Agregar producto al carrito
 const addToCart = async (req, res) => {
     const userId = req.user.id;
     const { product_id, quantity } = req.body;
