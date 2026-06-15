@@ -21,8 +21,9 @@ const createProduct = async (name, description, category, price, stock, imageUrl
     );
     return result.rows[0];
 };
-// const deleteProduct = async (id) => {
-//     const result = await pool.query('DELETE FROM products WHERE id = $1 RETURNING *', [id]);
-//     return result.rows[0]; // Retorna el producto eliminado
-// };
-module.exports = { getAllProducts, getProductById, createProduct };
+const deleteProduct = async (id) => {
+    const result = await pool.query('DELETE FROM products WHERE id = $1 RETURNING *', [id]);
+    return result.rows[0]; // Retorna el producto eliminado
+};
+module.exports = { getAllProducts, getProductById, createProduct, deleteProduct };
+

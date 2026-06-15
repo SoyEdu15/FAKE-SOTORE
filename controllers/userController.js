@@ -35,11 +35,14 @@ const findUserByUsername = async (req, res) => {
     try {
         const user = await userModel.findUserByUsername(username);
 
-        if (!user) {
+        if (user.rows.length === 0) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
-        res.status(200).json(user.rows[0]);
+        const userData = { ...user.rows[0] };
+        delete userData.password;
+
+        res.status(200).json(userData);
     } catch (error) {
         console.error('Error al buscar el usuario:', error);
         res.status(500).json({ message: 'Error al buscar el usuario' });

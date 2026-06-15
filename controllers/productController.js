@@ -38,23 +38,23 @@ const createProduct = async (req, res) => {
         res.status(500).json({ message: 'Error al crear el producto' });
     }
 };
-// const deleteProduct = async (req, res) => {
-//     const { id } = req.params;
-//     try {
-//         const deletedProduct = await Product.deleteProduct(id);
+const deleteProduct = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deletedProduct = await Product.deleteProduct(id);
         
-//         if (!deletedProduct) {
-//             return res.status(404).json({ message: 'Producto no encontrado' });
-//         }
+        if (!deletedProduct) {
+            return res.status(404).json({ message: 'Producto no encontrado' });
+        }
         
-//         res.status(200).json({
-//             message: 'Producto eliminado con éxito',
-//             product: deletedProduct,
-//         });
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).json({ message: 'Error al eliminar el producto' });
-//     }
-// };
+        res.status(200).json({
+            message: 'Producto eliminado con éxito',
+            product: deletedProduct,
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al eliminar el producto' });
+    }
+};
 
-module.exports = { getAllProducts, getProductById, createProduct };
+module.exports = { getAllProducts, getProductById, createProduct, deleteProduct };

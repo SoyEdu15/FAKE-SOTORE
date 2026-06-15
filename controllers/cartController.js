@@ -39,23 +39,35 @@ const addToCart = async (req, res) => {
 
 // Editar la cantidad de un producto
 const updateCart = async (req, res) => {
-    const { user_id, product_id, quantity } = req.body;
+    const userId = req.user.id;
+    const { product_id, quantity } = req.body;
 
     try {
-        const result = await cartModel.updateProductQuantity(user_id, product_id, quantity);
+        const result = await cartModel.updateProductQuantity(userId, product_id, quantity);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: 'Producto no encontrado en el carrito' });
+        }
         res.json(result.rows[0]);
     } catch (error) {
-        console.error('[UPDATE CART ERROR]', error);
-        res.status(500).json({ message: 'Error updating cart' });
+        if (error.message.includes('No hay suficiente stock')) {
+            res.status(400).json({ message: error.message });
+        } else {
+            console.error('[UPDATE CART ERROR]', error);
+            res.status(500).json({ message: 'Error updating cart' });
+        }
     }
 };
 
 // Eliminar producto del carrito
 const removeFromCart = async (req, res) => {
     const { cartId } = req.params;
+    const userId = req.user.id;
 
     try {
-        await cartModel.removeProductFromCart(cartId);
+        const result = await cartModel.removeProductFromCart(cartId, userId);
+        if (result.rowCount === 0) {
+            return res.status(404).json({ message: 'Item no encontrado en el carrito' });
+        }
         res.json({ message: 'Product removed from cart' });
     } catch (error) {
         console.error('[REMOVE FROM CART ERROR]', error);

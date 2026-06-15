@@ -1,15 +1,16 @@
 const pool = require('../config/db');
 const bcrypt = require('bcrypt');
-// Función para obtener todos los productos
+
+// Función para obtener todos los usuarios
 const getAllUsers = async () => {
-    const result = await pool.query('SELECT * FROM users');
+    const result = await pool.query('SELECT id, username, role FROM users');
     return result.rows;
 };
 
 const createUser = async (username, password, role) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     return await pool.query(
-        'INSERT INTO users (username, password, role) VALUES ($1, $2, $3)',
+        'INSERT INTO users (username, password, role) VALUES ($1, $2, $3) RETURNING id, username, role',
         [username, hashedPassword, role || 'user']
     );
 };
@@ -17,9 +18,9 @@ const createUser = async (username, password, role) => {
 const findUserByUsername = async (username) => {
     return await pool.query('SELECT * FROM users WHERE username = $1', [username]);
 };
+
 module.exports = {
     getAllUsers,
     findUserByUsername,
     createUser
-
-}
+}

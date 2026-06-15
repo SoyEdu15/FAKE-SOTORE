@@ -16,8 +16,7 @@ debug.log
 .vscode/
 .idea/
 
-# SQL files (opcional)
-*.sql
+# *.sql
 
 # Compiled files
 *.out
