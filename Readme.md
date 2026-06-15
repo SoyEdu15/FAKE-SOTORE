@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="banner.png" alt="Fake Store API Banner" width="100%">
-</p>
-
 # 🛒 Fake Store API (RESTful Backend)
 
 Una potente **API RESTful** construida en **Node.js** y **Express** que modela el backend de una tienda virtual (E-commerce). Cuenta con autenticación y autorización segura basada en **JSON Web Tokens (JWT)**, gestión de roles de usuarios (cliente y administrador), CRUD de productos y una lógica de carrito de compras completamente validada con control de stock de inventario.
